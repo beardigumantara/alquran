@@ -5,12 +5,16 @@ import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
   //Get All Surah
-  getAllSurah() async {
+  Future<List<Surah>> getAllSurah() async {
     Uri url = Uri.parse("https://api.quran.gading.dev/surah");
-
     var res = await http.get(url);
-    List data = (json.decode(res.body) as Map<String, dynamic>)["data"];
 
-    Surah surahAnnas = Surah.fromJson(data[113]);
+    List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];
+
+    if (data == null || data.isEmpty) {
+      return [];
+    } else {
+      return data.map((e) => Surah.fromJson(e)).toList();
+    }
   }
 }

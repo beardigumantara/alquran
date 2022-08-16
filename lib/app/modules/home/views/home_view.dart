@@ -1,3 +1,4 @@
+import 'package:alquran/data/models/surah.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class HomeView extends GetView<HomeController> {
         title: const Text('HomeView'),
         centerTitle: true,
       ),
-      body: FutureBuilder(
+      body: FutureBuilder<List<Surah>>(
           future: controller.getAllSurah(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -21,16 +22,28 @@ class HomeView extends GetView<HomeController> {
                 child: CircularProgressIndicator(),
               );
             }
+            if (!snapshot.hasData) {
+              return Center(
+                child: Text("No hasData"),
+              );
+            }
+            print(snapshot.data);
             return ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) => ListTile(
-                leading: CircleAvatar(
-                  child: Text("${index + 1}"),
-                ),
-                title: Text("Surat ...."),
-                subtitle: Text(".... Ayat | ...."),
-                trailing: Text("text Arab"),
-              ),
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                Surah surah = snapshot.data![index];
+                return ListTile(
+                  onTap: () {},
+                  leading: CircleAvatar(
+                    child: Text("${surah.number}"),
+                  ),
+                  title:
+                      Text("${surah.name?.transliteration?.id ?? 'Error...'}"),
+                  subtitle: Text(
+                      "${surah.numberOfVerses} Ayat | ${surah.revelation?.id ?? 'Error...'} "),
+                  trailing: Text("${surah.name?.short ?? 'Error...'}"),
+                );
+              },
             );
           }),
     );
