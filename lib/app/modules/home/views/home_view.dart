@@ -13,10 +13,15 @@ class HomeView extends GetView<HomeController> {
         title: const Text('HomeView'),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
+      body: ListView.builder(
+        itemCount: 10,
+        itemBuilder: (context, index) => ListTile(
+          leading: CircleAvatar(
+            child: Text("${index + 1}"),
+          ),
+          title: Text("Surat ...."),
+          subtitle: Text(".... Ayat | ...."),
+          trailing: Text("text Arab"),
         ),
       ),
     );
