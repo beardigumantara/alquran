@@ -1,23 +1,17 @@
+import 'package:alquran/data/models/detail_surah.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class DetailSurahController extends GetxController {
-  //TODO: Implement DetailSurahController
+  //Get All Surah
+  Future<DetailSurah> getDetailSurah(String id) async {
+    Uri url = Uri.parse("https://api.quran.gading.dev/surah/$id");
+    var res = await http.get(url);
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
+    Map<String, dynamic> data =
+        (json.decode(res.body) as Map<String, dynamic>)["data"];
+
+    return DetailSurah.fromJson(data);
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }
