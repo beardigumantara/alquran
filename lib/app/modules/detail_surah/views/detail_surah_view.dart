@@ -60,57 +60,65 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     child: Text("No hasData"),
                   );
                 }
-                return Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: snapshot.data?.verses?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      if (snapshot.data?.verses?.length == 0) {
-                        return SizedBox();
-                      }
-                      detail.Verse? ayat = snapshot.data?.verses?[index];
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Card(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 5, horizontal: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CircleAvatar(
-                                    child: Text('${index + 1}'),
-                                  ),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.bookmark_add_outlined),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(Icons.play_arrow),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: snapshot.data?.verses?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    if (snapshot.data?.verses?.length == 0) {
+                      return SizedBox();
+                    }
+                    detail.Verse? ayat = snapshot.data?.verses?[index];
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Card(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 5, horizontal: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                CircleAvatar(
+                                  child: Text('${index + 1}'),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.bookmark_add_outlined),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(Icons.play_arrow),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 20),
-                          Text(
-                            "${ayat!.text?.arab}",
-                            textAlign: TextAlign.end,
-                            style: TextStyle(fontSize: 25),
-                          ),
-                          SizedBox(height: 50),
-                        ],
-                      );
-                    },
-                  ),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "${ayat!.text?.arab}",
+                          textAlign: TextAlign.end,
+                          style: TextStyle(fontSize: 25),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "${ayat!.text?.transliteration?.en}",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "${ayat!.translation?.id}",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    );
+                  },
                 );
               }),
         ],
