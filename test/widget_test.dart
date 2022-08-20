@@ -1,3 +1,4 @@
+import 'package:alquran/data/models/ayat.dart';
 import 'package:alquran/data/models/detail_surah.dart';
 import 'package:alquran/data/models/surah.dart';
 import 'package:http/http.dart' as http;
@@ -34,4 +35,21 @@ void main() async {
   // changes raw data api to Models Surah
   DetailSurah annas = DetailSurah.fromJson(dataAnnas);
   print(annas.verses![5].text!.arab);
+
+  //deatil ayat
+  Uri urlAyat =
+      Uri.parse("https://api.quran.gading.dev/surah/${surahAnnas.number}/1");
+  var resAyat = await http.get(urlAyat);
+  Map<String, dynamic> dataAyat =
+      (json.decode(resAnnas.body) as Map<String, dynamic>)["data"];
+  Map<String, dynamic> dataAyatToModel = {
+    "number": dataAyat["number"],
+    "meta": dataAyat["meta"],
+    "text": dataAyat["text"],
+    "translation": dataAyat["translation"],
+    "audio": dataAyat["audio"],
+    "tafsir": dataAyat["tafsir"],
+  };
+
+  Ayat ayat = Ayat.fromJson(dataAyatToModel);
 }

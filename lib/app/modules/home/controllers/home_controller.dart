@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class HomeController extends GetxController {
   //Get All Surah
   Future<List<Surah>> getAllSurah() async {
-    Uri url = Uri.parse("https://api.quran.gading.dev/surah");
+    Uri url = Uri.parse("https://quran-api-indo.vercel.app/surah");
     var res = await http.get(url);
 
     List? data = (json.decode(res.body) as Map<String, dynamic>)["data"];

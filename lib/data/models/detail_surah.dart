@@ -1,5 +1,5 @@
-// API : https://api.quran.gading.dev/surah/${no_surat}
-// Get all Surah in Al-Qur'an
+// API : https://quran-api-indo.vercel.app/surah/${no_surat}
+// Get all detail Surah in Al-Qur'an
 
 import 'dart:convert';
 
